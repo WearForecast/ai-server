@@ -9,6 +9,6 @@ def root():
     return {"message": "Hello World"}
 
 @app.post("/recommend")
-async def recommend_clothing(prompt: str):
-    recommended_item = model.recommend_clothing(prompt)
+async def recommend_clothing(weather: str, gender: str):
+    recommended_item = model.recommend_clothing(weather, gender)
     return {"recommended_item": recommended_item}
