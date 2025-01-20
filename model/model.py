@@ -1,11 +1,14 @@
 import torch
 import os
 from PIL import Image
+from dotenv import load_dotenv
 
 from transformers import CLIPProcessor, CLIPModel
 import google.generativeai as genai
 
-api_key = "AIzaSyArd_uXfSZl4vox7aIRbkDwz0YjKcSxobU"
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
 model_name = "laion/CLIP-ViT-B-32-laion2B-s34B-b79K"
 
 clothing_images_folder = "./images"
@@ -17,7 +20,7 @@ clothing_images = {
 
 class ClothingRecommender:
     def __init__(self):
-        genai.configure(api_key=api_key)
+        genai.configure(api_key=API_KEY)
         self.genai_model = genai.GenerativeModel("gemini-1.5-flash")
 
         self.model = CLIPModel.from_pretrained(model_name)
