@@ -3,3 +3,6 @@ images/
 image_clothes/
 
 .env
+node_modules/
+package-lock.json
+package.json
