@@ -1,5 +1,6 @@
 import torch
 import os
+import requests
 from PIL import Image
 from dotenv import load_dotenv
 
@@ -11,13 +12,6 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 model_name = "laion/CLIP-ViT-B-32-laion2B-s34B-b79K"
 
-clothing_images_folder = "./images"
-clothing_images = {
-    os.path.splitext(filename)[0]: os.path.join(clothing_images_folder, filename)
-    for filename in os.listdir(clothing_images_folder)
-    if filename.lower().endswith((".png", ".jpg", ".jpeg"))
-}
-
 class ClothingRecommender:
     def __init__(self):
         genai.configure(api_key=API_KEY)
@@ -25,6 +19,10 @@ class ClothingRecommender:
 
         self.model = CLIPModel.from_pretrained(model_name)
         self.processor = CLIPProcessor.from_pretrained(model_name)
+
+    def fetch_images_from_server(self):
+
+        return clothing_images
 
     def generate_prompt(self, weather, gender):
         if not weather or not isinstance(weather, str):
