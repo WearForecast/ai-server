@@ -20,9 +20,11 @@ class ClothingRecommender:
         self.model = CLIPModel.from_pretrained(model_name)
         self.processor = CLIPProcessor.from_pretrained(model_name)
 
-    def fetch_images_from_server(self):
+    def fetch_embeddings_from_server(self):
+        # Requests server for all image embeddings
+        
 
-        return clothing_images
+        return image_embeddings
 
     def generate_prompt(self, weather, gender):
         if not weather or not isinstance(weather, str):
