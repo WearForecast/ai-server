@@ -10,5 +10,5 @@ def root():
 
 @app.post("/recommend")
 async def recommend_clothing(weather: str, gender: str):
-    recommended_item = model.recommend_clothing(weather, gender)
-    return {"recommended_item": recommended_item}
+    recommended_clothings, translated_prompt = model.recommend_clothing(weather, gender)
+    return recommended_clothings, translated_prompt
