@@ -69,7 +69,7 @@ def process_dataset(image_directory, output_file_path):
                 time.sleep(3)
 
 if __name__ == "__main__":
-    image_directory = "./images/1"  
+    image_directory = "./images/4"  
     csv_file_path = "./image_labels.csv"
 
     process_dataset(image_directory, csv_file_path)
