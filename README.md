@@ -6,7 +6,7 @@
 
 ## 시작 가이드
 ### Requirements
-- Python 3.8 이상
+- Python 3.10 이상
 - **Conda** (가상 환경 관리) 
 - API 키 및 데이터베이스 정보 (`.env` 파일 필요)
 
@@ -35,6 +35,7 @@ SUPABASE_KEY=YOUR_SUPABASE_KEY
 $ uvicorn main:app --reload
 ```
 6. **API 문서 확인**
+
 서버가 실행되면 http://127.0.0.1:8000/docs 에서 API 문서를 확인할 수 있습니다.
 
 ## 주요 기능  
