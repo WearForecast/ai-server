@@ -2,7 +2,7 @@
 <img width="1123" alt="image" src="https://github.com/user-attachments/assets/2ca75475-cca5-4da0-8911-4d2f713803bb" />
 
 # WearForecast AI Server
-이 저장소는 **FastAPI**를 사용하여 날씨와 성별을 기반으로 의류를 추천하는 API를 제공합니다. **CLIP 모델**과 **Gemini AI**를 활용하여 텍스트 기반 추천을 수행하고, **Supabase** 데이터베이스에서 적절한 이미지를 검색하여 사용자에게 추천합니다.  
+이 저장소는 **FastAPI**를 사용하여 날씨와 성별을 기반으로 의류를 추천하는 API를 제공합니다. **CLIP 모델**과 **Gemini**를 활용하여 텍스트 기반 추천을 수행하고, **Supabase** 데이터베이스에서 적절한 이미지를 검색하여 사용자에게 추천합니다.  
 
 ## 시작 가이드
 ### Requirements
@@ -35,7 +35,7 @@ SUPABASE_KEY=YOUR_SUPABASE_KEY
 $ uvicorn main:app --reload
 ```
 6. **API 문서 확인**
-서버가 실행되면 http://127.0.0.1:8000/docs에서 API 문서를 확인할 수 있습니다.
+서버가 실행되면 http://127.0.0.1:8000/docs 에서 API 문서를 확인할 수 있습니다.
 
 ## 주요 기능  
 
