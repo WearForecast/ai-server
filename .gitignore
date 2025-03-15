@@ -6,3 +6,8 @@ image_clothes/
 node_modules/
 package-lock.json
 package.json
+
+wandb/
+mlx_model/
+
+clip-download.py

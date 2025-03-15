@@ -1,0 +1,9 @@
+fine-tune-fashionclip/
+image_scaper/
+model/images/
+model/image_embeddings.csv
+
+__pycache__/
+
+.git
+.gitignore
