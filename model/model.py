@@ -91,13 +91,58 @@ class ClothingRecommender:
             raise ValueError("Generated translation does not contain 'text' attribute.")
         return translation.text
 
-    def find_best_match(self, text_embedding):
+    def find_best_match(self, text_embedding, gender):
         text_embedding_list = text_embedding.squeeze().tolist()
 
-        response = supabase.rpc(
-            "find_best_match",
-            {"text_embedding": text_embedding_list}
-        ).execute()
+        if gender.lower() == "neutral":
+            response_men = supabase.rpc(
+                "find_best_match_men",
+                {"text_embedding": text_embedding_list}
+            ).execute()
+            response_women = supabase.rpc(
+                "find_best_match_women",
+                {"text_embedding": text_embedding_list}
+            ).execute()
+
+            men_results = response_men.data
+            women_results = response_women.data
+            combined_results = []
+            men_idx, women_idx = 0, 0
+
+            while len(combined_results) < 5 and (men_idx < len(men_results)) or (women_idx < len(women_results)):
+                if men_idx < len(men_results):
+                    combined_results.append(men_results[men_idx])
+                    men_idx += 1
+                    if len(combined_results) == 5:
+                        break
+                if women_idx < len(women_results):
+                    combined_results.append(women_results[women_idx])
+                    women_idx += 1
+                    if len(combined_results) == 5:
+                        break
+            
+            response = {"data": combined_results}
+
+            best_match = response.get("data")
+            if not best_match:
+                print("No matches found in the database.")
+                raise ValueError("No matches found in the database.")
+            
+            image_names = [row["image_name"] for row in best_match]
+
+            return image_names
+
+
+        elif gender.lower() == "men":
+            response = supabase.rpc(
+                "find_best_match_men",
+                {"text_embedding": text_embedding_list}
+            ).execute()
+        elif gender.lower() == "women":
+            response = supabase.rpc(
+                "find_best_match_women",
+                {"text_embedding": text_embedding_list}
+            ).execute()
 
         if hasattr(response, "error") and response.error:  # Check for an error attribute
             raise Exception(f"Supabase Error: {response.error}")
@@ -124,7 +169,7 @@ class ClothingRecommender:
             )
             text_embedding = self.model.get_text_features(**inputs)
 
-        image_names = self.find_best_match(text_embedding)
+        image_names = self.find_best_match(text_embedding, gender)
 
         response = supabase.storage.from_("photos").create_signed_urls(
             image_names, 3600
